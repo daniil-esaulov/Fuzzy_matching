@@ -10,7 +10,7 @@ sdf$address <- str_replace_all(sdf$address, "[\r\n]" , " ")
 sdf$address <-  gsub("\\s+", " ",sdf$address)
 
 #add column with city
-sdf$city <- sub(".*?((ã\\..*?)|(ñ\\..*?)|(ãîðîä .*?)|( ã .*?)|(ãîð\\..*?)|(ïãò\\..*?)|(ïãò.*?)|(ï\\..*?)|(ï .*?)|(ïîñ\\..*?)|(äåð\\..*?)|(ð\\.ï\\..*?)|(ðï .*?)|(ðàáî÷èé ïîñåëîê.*?)|(ñåëî .*?)|(ñ .*?)|(ñò-öà.*?)|(ñòàíèöà.*?)|(ñîâõîç.*?))((\\,.*$)|$|( óë\\..*$)|(óëèöà.*$)|(ïð\\..*$)|(\\(.*$))", "\\1", sdf$address, perl = TRUE, ignore.case = TRUE)
+sdf$city <- sub(".*?((Ð³\\..*?)|(Ñ\\..*?)|(Ð³Ð¾Ñ€Ð¾Ð´ .*?)|( Ð³ .*?)|(Ð³Ð¾Ñ€\\..*?)|(Ð¿Ð³Ñ‚\\..*?)|(Ð¿Ð³Ñ‚.*?)|(Ð¿\\..*?)|(Ð¿ .*?)|(Ð¿Ð¾Ñ\\..*?)|(Ð´ÐµÑ€\\..*?)|(Ñ€\\.Ð¿\\..*?)|(Ñ€Ð¿ .*?)|(Ñ€Ð°Ð±Ð¾Ñ‡Ð¸Ð¹ Ð¿Ð¾ÑÐµÐ»Ð¾Ðº.*?)|(ÑÐµÐ»Ð¾ .*?)|(Ñ .*?)|(ÑÑ‚-Ñ†Ð°.*?)|(ÑÑ‚Ð°Ð½Ð¸Ñ†Ð°.*?)|(ÑÐ¾Ð²Ñ…Ð¾Ð·.*?))((\\,.*$)|$|( ÑƒÐ»\\..*$)|(ÑƒÐ»Ð¸Ñ†Ð°.*$)|(Ð¿Ñ€\\..*$)|(\\(.*$))", "\\1", sdf$address, perl = TRUE, ignore.case = TRUE)
 
 #add missing value in columns with values from the nonempty row above
 library(zoo)
@@ -41,39 +41,39 @@ sdf2 <- mutate(sdf2, ed_firm=firm)
 sdf2 <- mutate(sdf2, ed_city=city)
 
 #extract just the city name
-sdf2$ed_city <-gsub(paste0('\\<', "ãîðîä", '\\>'), paste(""), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "ñåëî", '\\>'), paste(""), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "ðàáî÷èé ïîñåëîê", '\\>'), paste(""), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "ñòàíèöà", '\\>'), paste(""), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "êîëõîç", '\\>'), paste(""), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "Ð³Ð¾Ñ€Ð¾Ð´", '\\>'), paste(""), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "ÑÐµÐ»Ð¾", '\\>'), paste(""), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "Ñ€Ð°Ð±Ð¾Ñ‡Ð¸Ð¹ Ð¿Ð¾ÑÐµÐ»Ð¾Ðº", '\\>'), paste(""), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "ÑÑ‚Ð°Ð½Ð¸Ñ†Ð°", '\\>'), paste(""), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "ÐºÐ¾Ð»Ñ…Ð¾Ð·", '\\>'), paste(""), sdf2$ed_city, ignore.case = TRUE)
 
-sdf2$ed_city <-gsub(paste0('\\<', "ã", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "ï", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "ñ", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "ð", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "ê", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "î", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "ò", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "ãï", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "ðï", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "ñï", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "ãî", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "ãê", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "ïãò", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "ïîñ", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "äåð", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "ãîð", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
-sdf2$ed_city <-gsub(paste0('\\<', "ñò-öà", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "Ð³", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "Ð¿", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "Ñ", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "Ñ€", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "Ðº", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "Ð¾", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "Ñ‚", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "Ð³Ð¿", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "Ñ€Ð¿", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "ÑÐ¿", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "Ð³Ð¾", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "Ð³Ðº", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "Ð¿Ð³Ñ‚", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "Ð¿Ð¾Ñ", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "Ð´ÐµÑ€", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "Ð³Ð¾Ñ€", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
+sdf2$ed_city <-gsub(paste0('\\<', "ÑÑ‚-Ñ†Ð°", '\\>'), paste(" "), sdf2$ed_city, ignore.case = TRUE)
 
 #Change hyphen "-" and dash " - " to space " "
 sdf2$ed_city <- gsub("-", " ", sdf2$ed_city)
-sdf2$ed_city <- gsub("–", " ", sdf2$ed_city)
-sdf2$ed_city <- gsub("—", " ", sdf2$ed_city)
+sdf2$ed_city <- gsub("â€“", " ", sdf2$ed_city)
+sdf2$ed_city <- gsub("â€”", " ", sdf2$ed_city)
 
 #Change hyphen "-" and dash " - " to space " " in "firm" column
 sdf2$ed_firm <- gsub("-", " ", sdf2$ed_firm)
-sdf2$ed_firm <- gsub("–", " ", sdf2$ed_firm)
-sdf2$ed_firm <- gsub("—", " ", sdf2$ed_firm)
+sdf2$ed_firm <- gsub("â€“", " ", sdf2$ed_firm)
+sdf2$ed_firm <- gsub("â€”", " ", sdf2$ed_firm)
 
 #separate firm name if parentheses. make 2 new columns with info inside and outside of parentheses
 sdf2$ed_firm_par_in <- lapply(sdf2$ed_firm, function(a) {
@@ -117,12 +117,12 @@ sdf2$ed_firm_par_out <- gsub("\\s+", " ", str_trim(sdf2$ed_firm_par_out))
 
 sdf2$ed_city <- gsub("\\s+", " ", str_trim(sdf2$ed_city))
 
-#standarize  "¹..."
-sdf2$ed_firm <- gsub("¹ ", "¹", sdf2$ed_firm)
-sdf2$ed_firm_par_in <- gsub("¹ ", "¹", sdf2$ed_firm_par_in)
-sdf2$ed_firm_par_out <- gsub("¹ ", "¹", sdf2$ed_firm_par_out)
+#standarize  "â„–..."
+sdf2$ed_firm <- gsub("â„– ", "â„–", sdf2$ed_firm)
+sdf2$ed_firm_par_in <- gsub("â„– ", "â„–", sdf2$ed_firm_par_in)
+sdf2$ed_firm_par_out <- gsub("â„– ", "â„–", sdf2$ed_firm_par_out)
 
-sdf2$ed_city <- gsub("¹ ", "¹", sdf2$ed_city)
+sdf2$ed_city <- gsub("â„– ", "â„–", sdf2$ed_city)
 
 ##add column with transliteration from latin to cyrrilic
 #sdf2$ed_firm_transl <- stri_trans_general(sdf2$ed_firm, "cyrillic")
@@ -196,7 +196,7 @@ for(i in region) {
   Ruslana <- Ruslana[which(Ruslana$found_year <=2013), ]
   #shrinking Ruslana db: deleting all the companies that became inactive before 2013
   Ruslana[is.na(Ruslana$status_change_year),"status_change_year"] <- 2017
-  Ruslana <- Ruslana[(Ruslana$status == "Äåéñòâóþùåå")|(Ruslana$status_change_year >=2013), ]
+  Ruslana <- Ruslana[(Ruslana$status == "Ð”ÐµÐ¹ÑÑ‚Ð²ÑƒÑŽÑ‰ÐµÐµ")|(Ruslana$status_change_year >=2013), ]
   
   r<-length(Ruslana$Mark)
   
@@ -211,9 +211,9 @@ for(i in region) {
   #if the ed_city_rusl name consists of 2 parts (separated with comma), extract just the first one
   Ruslana$ed_city_rusl <- sub("(.*?)(\\,.*$)", "\\1", Ruslana$ed_city_rusl, ignore.case = TRUE)
   
-  Ruslana$ed_firm_short <- gsub("-|–|—"," ", enc2utf8(Ruslana$ed_firm_short))
-  Ruslana$ed_firm_long <- gsub("-|–|—"," ", enc2utf8(Ruslana$ed_firm_long))
-  Ruslana$ed_city_rusl <- gsub("-|–|—"," ", enc2utf8(Ruslana$ed_city_rusl))
+  Ruslana$ed_firm_short <- gsub("-|â€“|â€”"," ", enc2utf8(Ruslana$ed_firm_short))
+  Ruslana$ed_firm_long <- gsub("-|â€“|â€”"," ", enc2utf8(Ruslana$ed_firm_long))
+  Ruslana$ed_city_rusl <- gsub("-|â€“|â€”"," ", enc2utf8(Ruslana$ed_city_rusl))
   
   Ruslana$ed_firm_short <- gsub("[[:punct:]]"," ", enc2utf8(Ruslana$ed_firm_short))
   Ruslana$ed_firm_long <- gsub("[[:punct:]]"," ", enc2utf8(Ruslana$ed_firm_long))
@@ -230,33 +230,33 @@ for(i in region) {
   Ruslana$ed_firm_long <- gsub("\\s+", " ",str_trim(Ruslana$ed_firm_long))
   Ruslana$ed_city_rusl <- gsub("\\s+", " ",str_trim(Ruslana$ed_city_rusl))
   
-  #edit "¹..."
-  Ruslana$ed_firm_short <- gsub("¹ ", "¹", Ruslana$ed_firm_short)
-  Ruslana$ed_firm_long <- gsub("¹ ", "¹", Ruslana$ed_firm_long)
-  Ruslana$ed_city_rusl <- gsub("¹ ", "¹", Ruslana$ed_city_rusl)
+  #edit "â„–..."
+  Ruslana$ed_firm_short <- gsub("â„– ", "â„–", Ruslana$ed_firm_short)
+  Ruslana$ed_firm_long <- gsub("â„– ", "â„–", Ruslana$ed_firm_long)
+  Ruslana$ed_city_rusl <- gsub("â„– ", "â„–", Ruslana$ed_city_rusl)
   
   #extract just the name of the city_rusl/selo/poselok
   
-  Ruslana$ed_city_rusl <- sub("(ðàáî÷èé çàâîäñêîé ïîñåëîê )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(ðàáî÷èé ïîñåëîê )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(ï ã ò )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(ïãò )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(ïîñ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(äåð )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(ãîð )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(ï î )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(ð ï )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(ðï )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(ñ ï )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(ñï )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(ñò öà )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(ñò )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(ã )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(ï )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(ñ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(ä )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(õ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
-  Ruslana$ed_city_rusl <- sub("(æ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(Ñ€Ð°Ð±Ð¾Ñ‡Ð¸Ð¹ Ð·Ð°Ð²Ð¾Ð´ÑÐºÐ¾Ð¹ Ð¿Ð¾ÑÐµÐ»Ð¾Ðº )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(Ñ€Ð°Ð±Ð¾Ñ‡Ð¸Ð¹ Ð¿Ð¾ÑÐµÐ»Ð¾Ðº )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(Ð¿ Ð³ Ñ‚ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(Ð¿Ð³Ñ‚ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(Ð¿Ð¾Ñ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(Ð´ÐµÑ€ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(Ð³Ð¾Ñ€ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(Ð¿ Ð¾ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(Ñ€ Ð¿ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(Ñ€Ð¿ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(Ñ Ð¿ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(ÑÐ¿ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(ÑÑ‚ Ñ†Ð° )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(ÑÑ‚ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(Ð³ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(Ð¿ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(Ñ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(Ð´ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(Ñ… )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
+  Ruslana$ed_city_rusl <- sub("(Ð¶ )(.*$)", "\\2", Ruslana$ed_city_rusl, ignore.case = TRUE)
   
   #add id to Ruslana table
   row_id_rusl<- as.numeric(rownames(Ruslana))
@@ -295,38 +295,38 @@ for(i in region) {
   
   #Phase 2
   
-  #Step 3: adding "îîî" to the long name of the company and find match
-  Ruslana <- mutate(Ruslana, ed2_firm_long = paste("îîî", ed_firm_long))
-  #Ruslana$ed_firm_long <- paste("îîî", Ruslana$ed_firm_long)
+  #Step 3: adding "Ð¾Ð¾Ð¾" to the long name of the company and find match
+  Ruslana <- mutate(Ruslana, ed2_firm_long = paste("Ð¾Ð¾Ð¾", ed_firm_long))
+  #Ruslana$ed_firm_long <- paste("Ð¾Ð¾Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #Step 4: adding "îàî" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("îàî", Ruslana$ed_firm_long)
+  #Step 4: adding "Ð¾Ð°Ð¾" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ð¾Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #Step 5: adding "çàî" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("çàî", Ruslana$ed_firm_long)
+  #Step 5: adding "Ð·Ð°Ð¾" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ð·Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #Step 6: adding "àî" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("àî", Ruslana$ed_firm_long)
+  #Step 6: adding "Ð°Ð¾" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #step 7: adding "ìóï" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("ìóï", Ruslana$ed_firm_long)
+  #step 7: adding "Ð¼ÑƒÐ¿" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ð¼ÑƒÐ¿", Ruslana$ed_firm_long)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #step 8: adding "èï" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("èï", Ruslana$ed_firm_long)
+  #step 8: adding "Ð¸Ð¿" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ð¸Ð¿", Ruslana$ed_firm_long)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #Step 9: editing rows with "èï" - if #of words in the string with "èï" is more than 4 make them 4 (to leave only "èï èâàíîâ âëàäèìèð âèêòîðîâè÷" instead of "èï èâàíîâ âëàäèìèð âèêòîðîâè÷ ìàãàçèí ðîìàøêà")
+  #Step 9: editing rows with "Ð¸Ð¿" - if #of words in the string with "Ð¸Ð¿" is more than 4 make them 4 (to leave only "Ð¸Ð¿ Ð¸Ð²Ð°Ð½Ð¾Ð² Ð²Ð»Ð°Ð´Ð¸Ð¼Ð¸Ñ€ Ð²Ð¸ÐºÑ‚Ð¾Ñ€Ð¾Ð²Ð¸Ñ‡" instead of "Ð¸Ð¿ Ð¸Ð²Ð°Ð½Ð¾Ð² Ð²Ð»Ð°Ð´Ð¸Ð¼Ð¸Ñ€ Ð²Ð¸ÐºÑ‚Ð¾Ñ€Ð¾Ð²Ð¸Ñ‡ Ð¼Ð°Ð³Ð°Ð·Ð¸Ð½ Ñ€Ð¾Ð¼Ð°ÑˆÐºÐ°")
   df$ed2_firm <- df$ed_firm
   df[df$num_space > 3,]$ed2_firm <- lapply(df[df$num_space > 3,]$ed_firm, function(a){
     word(a, 1,4)
@@ -337,23 +337,23 @@ for(i in region) {
   cong <- merge(df, Ruslana, by.x="ed2_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #step 10: deleting initials and adding "èï" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("èï", word(Ruslana$ed_firm_long, 1))
+  #step 10: deleting initials and adding "Ð¸Ð¿" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ð¸Ð¿", word(Ruslana$ed_firm_long, 1))
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #step 11: getting initials from the full name and adding "èï" to the long name of the company
+  #step 11: getting initials from the full name and adding "Ð¸Ð¿" to the long name of the company
   Ruslana$num_spaces <- lapply(Ruslana$ed_firm_long, function(a){length(gregexpr(" ", a)[[1]])})
   Ruslana$ed2_firm_long <- Ruslana$ed_firm_long
   Ruslana[Ruslana$num_spaces==2,]$ed2_firm_long <- unlist(lapply(Ruslana[Ruslana$num_spaces==2,]$ed_firm_long, function(a){
     paste(word(a, 1), substring(word(a, 2), 1, 1), substring(word(a, 3), 1, 1))
   })
   )
-  Ruslana$ed2_firm_long <- paste("èï", Ruslana$ed2_firm_long)
+  Ruslana$ed2_firm_long <- paste("Ð¸Ð¿", Ruslana$ed2_firm_long)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #step 12: the same as in step 9, but works for initials (example "èï èâàíîâ â â" instead of "èï èâàíîâ â â ìàãàçèí ðîìàøêà")
+  #step 12: the same as in step 9, but works for initials (example "Ð¸Ð¿ Ð¸Ð²Ð°Ð½Ð¾Ð² Ð² Ð²" instead of "Ð¸Ð¿ Ð¸Ð²Ð°Ð½Ð¾Ð² Ð² Ð² Ð¼Ð°Ð³Ð°Ð·Ð¸Ð½ Ñ€Ð¾Ð¼Ð°ÑˆÐºÐ°")
   df$ed2_firm <- df$ed_firm
   df[df$num_space > 3,]$ed2_firm <- lapply(df[df$num_space > 3,]$ed_firm, function(a){
     word(a, 1,4)
@@ -364,8 +364,8 @@ for(i in region) {
   cong <- merge(df, Ruslana, by.x="ed2_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #step 13: adding "ôãóï" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("ôãóï", Ruslana$ed_firm_long)
+  #step 13: adding "Ñ„Ð³ÑƒÐ¿" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ñ„Ð³ÑƒÐ¿", Ruslana$ed_firm_long)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
@@ -373,42 +373,42 @@ for(i in region) {
   #editing long name again
   
   #step 24:
-  Ruslana$ed2_firm_long <- gsub("îáùåñòâî ñ îãðàíè÷åííîé îòâåòñòâåííîñòüþ", "îîî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾ Ñ Ð¾Ð³Ñ€Ð°Ð½Ð¸Ñ‡ÐµÐ½Ð½Ð¾Ð¹ Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÐµÐ½Ð½Ð¾ÑÑ‚ÑŒÑŽ", "Ð¾Ð¾Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 25:
-  Ruslana$ed2_firm_long <- gsub("çàêðûòîå àêöèîíåðíîå îáùåñòâî", "çàî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð·Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 26:
-  Ruslana$ed2_firm_long <- gsub("àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 27:
-  Ruslana$ed2_firm_long <- gsub("àêöèîíåðíîå îáùåñòâî", "îàî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð¾Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 28:
-  Ruslana$ed2_firm_long <- gsub("àêöèîíåðíîå îáùåñòâî", "çàî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð·Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 29:
-  Ruslana$ed2_firm_long <- gsub("îòêðûòîå àêöèîíåðíîå îáùåñòâî", "îàî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð¾Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 30:
-  Ruslana$ed2_firm_long <- gsub("îòêðûòîå àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 31:
-  Ruslana$ed2_firm_long <- gsub("çàêðûòîå àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
@@ -428,54 +428,54 @@ for(i in region) {
   
   #Same for the short name of the company
   
-  #step 14: adding "îîî" to the short name of the company
-  Ruslana <- mutate(Ruslana, ed2_firm_short = paste("îîî", ed_firm_short))
+  #step 14: adding "Ð¾Ð¾Ð¾" to the short name of the company
+  Ruslana <- mutate(Ruslana, ed2_firm_short = paste("Ð¾Ð¾Ð¾", ed_firm_short))
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   
-  #step 15: adding "îàî" to the short name of the company
-  Ruslana$ed2_firm_short <- paste("îàî", Ruslana$ed_firm_short)
+  #step 15: adding "Ð¾Ð°Ð¾" to the short name of the company
+  Ruslana$ed2_firm_short <- paste("Ð¾Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 16: adding "çàî" to the short name of the company
-  Ruslana$ed2_firm_short <- paste("çàî", Ruslana$ed_firm_short)
+  #step 16: adding "Ð·Ð°Ð¾" to the short name of the company
+  Ruslana$ed2_firm_short <- paste("Ð·Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 17: adding "àî" to the short name of the company
-  Ruslana$ed2_firm_short <- paste("àî", Ruslana$ed_firm_short)
+  #step 17: adding "Ð°Ð¾" to the short name of the company
+  Ruslana$ed2_firm_short <- paste("Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 18: adding "ìóï" to the short name of the company
-  Ruslana$ed2_firm_short <- paste("ìóï", Ruslana$ed_firm_short)
+  #step 18: adding "Ð¼ÑƒÐ¿" to the short name of the company
+  Ruslana$ed2_firm_short <- paste("Ð¼ÑƒÐ¿", Ruslana$ed_firm_short)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 19: adding "ôãóï" to the short name of the company
-  Ruslana$ed2_firm_short <- paste("ôãóï", Ruslana$ed_firm_short)
+  #step 19: adding "Ñ„Ð³ÑƒÐ¿" to the short name of the company
+  Ruslana$ed2_firm_short <- paste("Ñ„Ð³ÑƒÐ¿", Ruslana$ed_firm_short)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 20: change "àî" to "îàî"
-  Ruslana$ed2_firm_short <- gsub("àî", "îàî", Ruslana$ed_firm_short)
+  #step 20: change "Ð°Ð¾" to "Ð¾Ð°Ð¾"
+  Ruslana$ed2_firm_short <- gsub("Ð°Ð¾", "Ð¾Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 21: change "oàî" to "àî"
-  Ruslana$ed2_firm_short <- gsub("îàî", "àî", Ruslana$ed_firm_short)
+  #step 21: change "oÐ°Ð¾" to "Ð°Ð¾"
+  Ruslana$ed2_firm_short <- gsub("Ð¾Ð°Ð¾", "Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 22: change "àî" to "çàî"
-  Ruslana$ed2_firm_short <- gsub("àî", "çàî", Ruslana$ed_firm_short)
+  #step 22: change "Ð°Ð¾" to "Ð·Ð°Ð¾"
+  Ruslana$ed2_firm_short <- gsub("Ð°Ð¾", "Ð·Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 23: change "çàî" to "àî"
-  Ruslana$ed2_firm_short <- gsub("çàî", "àî", Ruslana$ed_firm_short)
+  #step 23: change "Ð·Ð°Ð¾" to "Ð°Ð¾"
+  Ruslana$ed2_firm_short <- gsub("Ð·Ð°Ð¾", "Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
@@ -483,42 +483,42 @@ for(i in region) {
   #---------------- the same with short name (didn't work on Sverdlovsk)
   
   #step 32:
-  Ruslana$ed2_firm_short <- gsub("îáùåñòâî ñ îãðàíè÷åííîé îòâåòñòâåííîñòüþ", "îîî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾ Ñ Ð¾Ð³Ñ€Ð°Ð½Ð¸Ñ‡ÐµÐ½Ð½Ð¾Ð¹ Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÐµÐ½Ð½Ð¾ÑÑ‚ÑŒÑŽ", "Ð¾Ð¾Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 33:
-  Ruslana$ed2_firm_short <- gsub("çàêðûòîå àêöèîíåðíîå îáùåñòâî", "çàî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð·Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 34:
-  Ruslana$ed2_firm_short <- gsub("àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 35:
-  Ruslana$ed2_firm_short <- gsub("àêöèîíåðíîå îáùåñòâî", "îàî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð¾Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 36:
-  Ruslana$ed2_firm_short <- gsub("àêöèîíåðíîå îáùåñòâî", "çàî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð·Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 37:
-  Ruslana$ed2_firm_short <- gsub("îòêðûòîå àêöèîíåðíîå îáùåñòâî", "îàî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð¾Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 38:
-  Ruslana$ed2_firm_short <- gsub("îòêðûòîå àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 39:
-  Ruslana$ed2_firm_short <- gsub("çàêðûòîå àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df, Ruslana, by.x="ed_firm", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
@@ -537,37 +537,37 @@ for(i in region) {
   
   #---------------------working with ICSID db
   
-  #step 40: adding "îîî" etc to "firm" in small table
-  df <- mutate(df, ed2_firm = paste("îîî", ed_firm))
+  #step 40: adding "Ð¾Ð¾Ð¾" etc to "firm" in small table
+  df <- mutate(df, ed2_firm = paste("Ð¾Ð¾Ð¾", ed_firm))
   cong <- merge(df, Ruslana, by.x="ed2_firm", by.y="ed_firm_short")
   sum <- rbind.fill(sum, cong)
   
   
-  df <- mutate(df, ed2_firm = paste("îàî", ed_firm))
+  df <- mutate(df, ed2_firm = paste("Ð¾Ð°Ð¾", ed_firm))
   cong <- merge(df, Ruslana, by.x="ed2_firm", by.y="ed_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("çàî", ed_firm))
+  df <- mutate(df, ed2_firm = paste("Ð·Ð°Ð¾", ed_firm))
   cong <- merge(df, Ruslana, by.x="ed2_firm", by.y="ed_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("àî", ed_firm))
+  df <- mutate(df, ed2_firm = paste("Ð°Ð¾", ed_firm))
   cong <- merge(df, Ruslana, by.x="ed2_firm", by.y="ed_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("îòêðûòîå àêöèîíåðíîå îáùåñòâî", ed_firm))
+  df <- mutate(df, ed2_firm = paste("Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", ed_firm))
   cong <- merge(df, Ruslana, by.x="ed2_firm", by.y="ed_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("àêöèîíåðíîå îáùåñòâî", ed_firm))
+  df <- mutate(df, ed2_firm = paste("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", ed_firm))
   cong <- merge(df, Ruslana, by.x="ed2_firm", by.y="ed_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("îáùåñòâî ñ îãðàíè÷åííîé îòâåòñòâåííîñòüþ", ed_firm))
+  df <- mutate(df, ed2_firm = paste("Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾ Ñ Ð¾Ð³Ñ€Ð°Ð½Ð¸Ñ‡ÐµÐ½Ð½Ð¾Ð¹ Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÐµÐ½Ð½Ð¾ÑÑ‚ÑŒÑŽ", ed_firm))
   cong <- merge(df, Ruslana, by.x="ed2_firm", by.y="ed_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("çàêðûòîå àêöèîíåðíîå îáùåñòâî", ed_firm))
+  df <- mutate(df, ed2_firm = paste("Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", ed_firm))
   cong <- merge(df, Ruslana, by.x="ed2_firm", by.y="ed_firm_long")
   sum <- rbind.fill(sum, cong)
   
@@ -604,50 +604,50 @@ for(i in region) {
   sum <- rbind.fill(sum, cong)
   
   
-  #adding "îîî" to the long name of the company
-  Ruslana <- mutate(Ruslana, ed2_firm_long = paste("îîî", ed_firm_long))
+  #adding "Ð¾Ð¾Ð¾" to the long name of the company
+  Ruslana <- mutate(Ruslana, ed2_firm_long = paste("Ð¾Ð¾Ð¾", ed_firm_long))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  Ruslana <- mutate(Ruslana, ed2_firm_long = paste("îîî", ed_firm_long))
+  Ruslana <- mutate(Ruslana, ed2_firm_long = paste("Ð¾Ð¾Ð¾", ed_firm_long))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   
-  #adding "îàî" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("îàî", Ruslana$ed_firm_long)
+  #adding "Ð¾Ð°Ð¾" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ð¾Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  Ruslana$ed2_firm_long <- paste("îàî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- paste("Ð¾Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #adding "çàî" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("çàî", Ruslana$ed_firm_long)
+  #adding "Ð·Ð°Ð¾" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ð·Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  Ruslana$ed2_firm_long <- paste("çàî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- paste("Ð·Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #adding "àî" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("àî", Ruslana$ed_firm_long)
+  #adding "Ð°Ð¾" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  Ruslana$ed2_firm_long <- paste("àî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- paste("Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #adding "ìóï" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("ìóï", Ruslana$ed_firm_long)
+  #adding "Ð¼ÑƒÐ¿" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ð¼ÑƒÐ¿", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #adding "èï" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("èï", Ruslana$ed_firm_long)
+  #adding "Ð¸Ð¿" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ð¸Ð¿", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
@@ -662,23 +662,23 @@ for(i in region) {
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #deleting initials and adding "èï" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("èï", word(Ruslana$ed_firm_long, 1))
+  #deleting initials and adding "Ð¸Ð¿" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ð¸Ð¿", word(Ruslana$ed_firm_long, 1))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #getting initials from the full name and adding "èï" to the long name of the company
+  #getting initials from the full name and adding "Ð¸Ð¿" to the long name of the company
   Ruslana$num_spaces <- lapply(Ruslana$ed_firm_long, function(a){length(gregexpr(" ", a)[[1]])})
   Ruslana$ed2_firm_long <- Ruslana$ed_firm_long
   Ruslana[Ruslana$num_spaces==2,]$ed2_firm_long <- unlist(lapply(Ruslana[Ruslana$num_spaces==2,]$ed_firm_long, function(a){
     paste(word(a, 1), substring(word(a, 2), 1, 1), substring(word(a, 3), 1, 1))
   })
   )
-  Ruslana$ed2_firm_long <- paste("èï", Ruslana$ed2_firm_long)
+  Ruslana$ed2_firm_long <- paste("Ð¸Ð¿", Ruslana$ed2_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #editing èï 2
+  #editing Ð¸Ð¿ 2
   df$ed2_firm <- df$ed_firm_par_in
   df[df$num_space > 3,]$ed2_firm <- lapply(df[df$num_space > 3,]$ed_firm, function(a){
     word(a, 1,4)
@@ -689,97 +689,97 @@ for(i in region) {
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #adding "ôãóï" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("ôãóï", Ruslana$ed_firm_long)
+  #adding "Ñ„Ð³ÑƒÐ¿" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ñ„Ð³ÑƒÐ¿", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #adding "ooo"
-  Ruslana <- mutate(Ruslana, ed2_firm_short = paste("îîî", ed_firm_short))
+  Ruslana <- mutate(Ruslana, ed2_firm_short = paste("Ð¾Ð¾Ð¾", ed_firm_short))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 9: adding "îàî" to the short name of the company
-  Ruslana$ed2_firm_short <- paste("îàî", Ruslana$ed_firm_short)
+  #step 9: adding "Ð¾Ð°Ð¾" to the short name of the company
+  Ruslana$ed2_firm_short <- paste("Ð¾Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 10: adding "çàî" to the short name of the company
-  Ruslana$ed2_firm_short <- paste("çàî", Ruslana$ed_firm_short)
+  #step 10: adding "Ð·Ð°Ð¾" to the short name of the company
+  Ruslana$ed2_firm_short <- paste("Ð·Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 11: adding "àî" to the short name of the company
-  Ruslana$ed2_firm_short <- paste("àî", Ruslana$ed_firm_short)
+  #step 11: adding "Ð°Ð¾" to the short name of the company
+  Ruslana$ed2_firm_short <- paste("Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 12: adding "ìóï" to the short name of the company
-  Ruslana$ed2_firm_short <- paste("ìóï", Ruslana$ed_firm_short)
+  #step 12: adding "Ð¼ÑƒÐ¿" to the short name of the company
+  Ruslana$ed2_firm_short <- paste("Ð¼ÑƒÐ¿", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 12: adding "ôãóï" to the short name of the company
-  Ruslana$ed2_firm_short <- paste("ôãóï", Ruslana$ed_firm_short)
+  #step 12: adding "Ñ„Ð³ÑƒÐ¿" to the short name of the company
+  Ruslana$ed2_firm_short <- paste("Ñ„Ð³ÑƒÐ¿", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step13:
-  Ruslana$ed2_firm_short <- gsub("àî", "îàî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð°Ð¾", "Ð¾Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  Ruslana$ed2_firm_short <- gsub("îàî", "àî", Ruslana$ed_firm_short)
-  cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
-  sum <- rbind.fill(sum, cong)
-  
-  #step14:
-  Ruslana$ed2_firm_short <- gsub("àî", "çàî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð¾Ð°Ð¾", "Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step14:
-  Ruslana$ed2_firm_short <- gsub("çàî", "àî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð°Ð¾", "Ð·Ð°Ð¾", Ruslana$ed_firm_short)
+  cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
+  sum <- rbind.fill(sum, cong)
+  
+  #step14:
+  Ruslana$ed2_firm_short <- gsub("Ð·Ð°Ð¾", "Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 15:
-  Ruslana$ed2_firm_long <- gsub("îáùåñòâî ñ îãðàíè÷åííîé îòâåòñòâåííîñòüþ", "îîî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾ Ñ Ð¾Ð³Ñ€Ð°Ð½Ð¸Ñ‡ÐµÐ½Ð½Ð¾Ð¹ Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÐµÐ½Ð½Ð¾ÑÑ‚ÑŒÑŽ", "Ð¾Ð¾Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 16:
-  Ruslana$ed2_firm_long <- gsub("çàêðûòîå àêöèîíåðíîå îáùåñòâî", "çàî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð·Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 17
-  Ruslana$ed2_firm_long <- gsub("àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 17
-  Ruslana$ed2_firm_long <- gsub("àêöèîíåðíîå îáùåñòâî", "îàî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð¾Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 17
-  Ruslana$ed2_firm_long <- gsub("àêöèîíåðíîå îáùåñòâî", "çàî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð·Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 17
-  Ruslana$ed2_firm_long <- gsub("îòêðûòîå àêöèîíåðíîå îáùåñòâî", "îàî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð¾Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 18
-  Ruslana$ed2_firm_long <- gsub("îòêðûòîå àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 16:
-  Ruslana$ed2_firm_long <- gsub("çàêðûòîå àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
@@ -787,92 +787,92 @@ for(i in region) {
   #---------------- the same with short name (didn't wotk on Sverdlovsk)
   
   #step 15:
-  Ruslana$ed2_firm_short <- gsub("îáùåñòâî ñ îãðàíè÷åííîé îòâåòñòâåííîñòüþ", "îîî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾ Ñ Ð¾Ð³Ñ€Ð°Ð½Ð¸Ñ‡ÐµÐ½Ð½Ð¾Ð¹ Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÐµÐ½Ð½Ð¾ÑÑ‚ÑŒÑŽ", "Ð¾Ð¾Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 16:
-  Ruslana$ed2_firm_short <- gsub("çàêðûòîå àêöèîíåðíîå îáùåñòâî", "çàî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð·Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 17
-  Ruslana$ed2_firm_short <- gsub("àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 17
-  Ruslana$ed2_firm_short <- gsub("àêöèîíåðíîå îáùåñòâî", "îàî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð¾Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 17
-  Ruslana$ed2_firm_short <- gsub("àêöèîíåðíîå îáùåñòâî", "çàî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð·Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 17
-  Ruslana$ed2_firm_short <- gsub("îòêðûòîå àêöèîíåðíîå îáùåñòâî", "îàî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð¾Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 18
-  Ruslana$ed2_firm_short <- gsub("îòêðûòîå àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 16:
-  Ruslana$ed2_firm_short <- gsub("çàêðûòîå àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_in", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #---------------------
-  #adding "îîî" etc to "firm" in small table
-  df <- mutate(df, ed2_firm = paste("îîî", ed_firm_par_in))
+  #adding "Ð¾Ð¾Ð¾" etc to "firm" in small table
+  df <- mutate(df, ed2_firm = paste("Ð¾Ð¾Ð¾", ed_firm_par_in))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("îàî", ed_firm_par_in))
+  df <- mutate(df, ed2_firm = paste("Ð¾Ð°Ð¾", ed_firm_par_in))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("çàî", ed_firm_par_in))
+  df <- mutate(df, ed2_firm = paste("Ð·Ð°Ð¾", ed_firm_par_in))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("àî", ed_firm_par_in))
+  df <- mutate(df, ed2_firm = paste("Ð°Ð¾", ed_firm_par_in))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("îòêðûòîå àêöèîíåðíîå îáùåñòâî", ed_firm_par_in))
+  df <- mutate(df, ed2_firm = paste("Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", ed_firm_par_in))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("àêöèîíåðíîå îáùåñòâî", ed_firm_par_in))
+  df <- mutate(df, ed2_firm = paste("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", ed_firm_par_in))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("îáùåñòâî ñ îãðàíè÷åííîé îòâåòñòâåííîñòüþ", ed_firm_par_in))
+  df <- mutate(df, ed2_firm = paste("Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾ Ñ Ð¾Ð³Ñ€Ð°Ð½Ð¸Ñ‡ÐµÐ½Ð½Ð¾Ð¹ Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÐµÐ½Ð½Ð¾ÑÑ‚ÑŒÑŽ", ed_firm_par_in))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("çàêðûòîå àêöèîíåðíîå îáùåñòâî", ed_firm_par_in))
+  df <- mutate(df, ed2_firm = paste("Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", ed_firm_par_in))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed_firm_long")
   sum <- rbind.fill(sum, cong)
   
   
   #------------------------the same with par_out
-  #step 7: adding "ìóï" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("ìóï", Ruslana$ed_firm_long)
+  #step 7: adding "Ð¼ÑƒÐ¿" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ð¼ÑƒÐ¿", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #step 7: adding "èï" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("èï", Ruslana$ed_firm_long)
+  #step 7: adding "Ð¸Ð¿" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ð¸Ð¿", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #editing èï 1
+  #editing Ð¸Ð¿ 1
   df$ed2_firm <- df$ed_firm_par_out
   df[df$num_space > 3,]$ed2_firm <- lapply(df[df$num_space > 3,]$ed_firm, function(a){
     word(a, 1,4)
@@ -884,23 +884,23 @@ for(i in region) {
   sum <- rbind.fill(sum, cong)
   
   
-  #step 7: deleting initials and adding "èï" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("èï", word(Ruslana$ed_firm_long, 1))
+  #step 7: deleting initials and adding "Ð¸Ð¿" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ð¸Ð¿", word(Ruslana$ed_firm_long, 1))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #step 7: getting initials from the full name and adding "èï" to the long name of the company
+  #step 7: getting initials from the full name and adding "Ð¸Ð¿" to the long name of the company
   Ruslana$num_spaces <- lapply(Ruslana$ed_firm_long, function(a){length(gregexpr(" ", a)[[1]])})
   Ruslana$ed2_firm_long <- Ruslana$ed_firm_long
   Ruslana[Ruslana$num_spaces==2,]$ed2_firm_long <- unlist(lapply(Ruslana[Ruslana$num_spaces==2,]$ed_firm_long, function(a){
     paste(word(a, 1), substring(word(a, 2), 1, 1), substring(word(a, 3), 1, 1))
   })
   )
-  Ruslana$ed2_firm_long <- paste("èï", Ruslana$ed2_firm_long)
+  Ruslana$ed2_firm_long <- paste("Ð¸Ð¿", Ruslana$ed2_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  #editing èï 2
+  #editing Ð¸Ð¿ 2
   df$ed2_firm <- df$ed_firm_par_out
   df[df$num_space > 3,]$ed2_firm <- lapply(df[df$num_space > 3,]$ed_firm, function(a){
     word(a, 1,4)
@@ -912,97 +912,97 @@ for(i in region) {
   sum <- rbind.fill(sum, cong)
   
   
-  #step 7: adding "ôãóï" to the long name of the company
-  Ruslana$ed2_firm_long <- paste("ôãóï", Ruslana$ed_firm_long)
+  #step 7: adding "Ñ„Ð³ÑƒÐ¿" to the long name of the company
+  Ruslana$ed2_firm_long <- paste("Ñ„Ð³ÑƒÐ¿", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 8:
-  Ruslana <- mutate(Ruslana, ed2_firm_short = paste("îîî", ed_firm_short))
+  Ruslana <- mutate(Ruslana, ed2_firm_short = paste("Ð¾Ð¾Ð¾", ed_firm_short))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 9: adding "îàî" to the short name of the company
-  Ruslana$ed2_firm_short <- paste("îàî", Ruslana$ed_firm_short)
+  #step 9: adding "Ð¾Ð°Ð¾" to the short name of the company
+  Ruslana$ed2_firm_short <- paste("Ð¾Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 10: adding "çàî" to the short name of the company
-  Ruslana$ed2_firm_short <- paste("çàî", Ruslana$ed_firm_short)
+  #step 10: adding "Ð·Ð°Ð¾" to the short name of the company
+  Ruslana$ed2_firm_short <- paste("Ð·Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 11: adding "àî" to the short name of the company
-  Ruslana$ed2_firm_short <- paste("àî", Ruslana$ed_firm_short)
+  #step 11: adding "Ð°Ð¾" to the short name of the company
+  Ruslana$ed2_firm_short <- paste("Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 12: adding "ìóï" to the short name of the company
-  Ruslana$ed2_firm_short <- paste("ìóï", Ruslana$ed_firm_short)
+  #step 12: adding "Ð¼ÑƒÐ¿" to the short name of the company
+  Ruslana$ed2_firm_short <- paste("Ð¼ÑƒÐ¿", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  #step 12: adding "ôãóï" to the short name of the company
-  Ruslana$ed2_firm_short <- paste("ôãóï", Ruslana$ed_firm_short)
+  #step 12: adding "Ñ„Ð³ÑƒÐ¿" to the short name of the company
+  Ruslana$ed2_firm_short <- paste("Ñ„Ð³ÑƒÐ¿", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step13:
-  Ruslana$ed2_firm_short <- gsub("àî", "îàî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð°Ð¾", "Ð¾Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  Ruslana$ed2_firm_short <- gsub("îàî", "àî", Ruslana$ed_firm_short)
-  cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
-  sum <- rbind.fill(sum, cong)
-  
-  #step14:
-  Ruslana$ed2_firm_short <- gsub("àî", "çàî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð¾Ð°Ð¾", "Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step14:
-  Ruslana$ed2_firm_short <- gsub("çàî", "àî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð°Ð¾", "Ð·Ð°Ð¾", Ruslana$ed_firm_short)
+  cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
+  sum <- rbind.fill(sum, cong)
+  
+  #step14:
+  Ruslana$ed2_firm_short <- gsub("Ð·Ð°Ð¾", "Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 15:
-  Ruslana$ed2_firm_long <- gsub("îáùåñòâî ñ îãðàíè÷åííîé îòâåòñòâåííîñòüþ", "îîî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾ Ñ Ð¾Ð³Ñ€Ð°Ð½Ð¸Ñ‡ÐµÐ½Ð½Ð¾Ð¹ Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÐµÐ½Ð½Ð¾ÑÑ‚ÑŒÑŽ", "Ð¾Ð¾Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 16:
-  Ruslana$ed2_firm_long <- gsub("çàêðûòîå àêöèîíåðíîå îáùåñòâî", "çàî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð·Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 17
-  Ruslana$ed2_firm_long <- gsub("àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 17
-  Ruslana$ed2_firm_long <- gsub("àêöèîíåðíîå îáùåñòâî", "îàî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð¾Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 17
-  Ruslana$ed2_firm_long <- gsub("àêöèîíåðíîå îáùåñòâî", "çàî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð·Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 17
-  Ruslana$ed2_firm_long <- gsub("îòêðûòîå àêöèîíåðíîå îáùåñòâî", "îàî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð¾Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 18
-  Ruslana$ed2_firm_long <- gsub("îòêðûòîå àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
   #step 16:
-  Ruslana$ed2_firm_long <- gsub("çàêðûòîå àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_long)
+  Ruslana$ed2_firm_long <- gsub("Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_long)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_long")
   sum <- rbind.fill(sum, cong)
   
@@ -1010,76 +1010,76 @@ for(i in region) {
   #---------------- the same with short name (didn't wotk on Sverdlovsk)
   
   #step 15:
-  Ruslana$ed2_firm_short <- gsub("îáùåñòâî ñ îãðàíè÷åííîé îòâåòñòâåííîñòüþ", "îîî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾ Ñ Ð¾Ð³Ñ€Ð°Ð½Ð¸Ñ‡ÐµÐ½Ð½Ð¾Ð¹ Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÐµÐ½Ð½Ð¾ÑÑ‚ÑŒÑŽ", "Ð¾Ð¾Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 16:
-  Ruslana$ed2_firm_short <- gsub("çàêðûòîå àêöèîíåðíîå îáùåñòâî", "çàî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð·Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 17
-  Ruslana$ed2_firm_short <- gsub("àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 17
-  Ruslana$ed2_firm_short <- gsub("àêöèîíåðíîå îáùåñòâî", "îàî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð¾Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 17
-  Ruslana$ed2_firm_short <- gsub("àêöèîíåðíîå îáùåñòâî", "çàî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð·Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 17
-  Ruslana$ed2_firm_short <- gsub("îòêðûòîå àêöèîíåðíîå îáùåñòâî", "îàî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð¾Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 18
-  Ruslana$ed2_firm_short <- gsub("îòêðûòîå àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #step 16:
-  Ruslana$ed2_firm_short <- gsub("çàêðûòîå àêöèîíåðíîå îáùåñòâî", "àî", Ruslana$ed_firm_short)
+  Ruslana$ed2_firm_short <- gsub("Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð°Ð¾", Ruslana$ed_firm_short)
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed_firm_par_out", by.y="ed2_firm_short")
   sum <- rbind.fill(sum, cong)
   
   #---------------------
-  #adding "îîî" etc to "firm" in small table
-  df <- mutate(df, ed2_firm = paste("îîî", ed_firm_par_out))
+  #adding "Ð¾Ð¾Ð¾" etc to "firm" in small table
+  df <- mutate(df, ed2_firm = paste("Ð¾Ð¾Ð¾", ed_firm_par_out))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("îàî", ed_firm_par_out))
+  df <- mutate(df, ed2_firm = paste("Ð¾Ð°Ð¾", ed_firm_par_out))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("çàî", ed_firm_par_out))
+  df <- mutate(df, ed2_firm = paste("Ð·Ð°Ð¾", ed_firm_par_out))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("àî", ed_firm_par_out))
+  df <- mutate(df, ed2_firm = paste("Ð°Ð¾", ed_firm_par_out))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed_firm_short")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("îòêðûòîå àêöèîíåðíîå îáùåñòâî", ed_firm_par_out))
+  df <- mutate(df, ed2_firm = paste("Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", ed_firm_par_out))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("àêöèîíåðíîå îáùåñòâî", ed_firm_par_out))
+  df <- mutate(df, ed2_firm = paste("Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", ed_firm_par_out))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("îáùåñòâî ñ îãðàíè÷åííîé îòâåòñòâåííîñòüþ", ed_firm_par_out))
+  df <- mutate(df, ed2_firm = paste("Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾ Ñ Ð¾Ð³Ñ€Ð°Ð½Ð¸Ñ‡ÐµÐ½Ð½Ð¾Ð¹ Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÐµÐ½Ð½Ð¾ÑÑ‚ÑŒÑŽ", ed_firm_par_out))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed_firm_long")
   sum <- rbind.fill(sum, cong)
   
-  df <- mutate(df, ed2_firm = paste("çàêðûòîå àêöèîíåðíîå îáùåñòâî", ed_firm_par_out))
+  df <- mutate(df, ed2_firm = paste("Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", ed_firm_par_out))
   cong <- merge(df[df$is_parenthes ,], Ruslana, by.x="ed2_firm", by.y="ed_firm_long")
   sum <- rbind.fill(sum, cong)
   
@@ -1114,38 +1114,38 @@ for(i in region) {
   sum$form <- tolower(sum$form)
   sum$form <- gsub("[[:punct:]]"," ", enc2utf8(sum$form))
   sum$form <- gsub("\\s+", " ", str_trim(sum$form))
-  sum$form <- gsub("îáùåñòâî ñ îãðàíè÷åííîé îòâåòñòâåííîñòüþ", "îîî", sum$form)
-  sum$form <- gsub("ìóíèöèïàëüíîå óíèòàðíîå ïðåäïðèÿòèå", "ìóï", sum$form)
-  sum$form <- gsub("èíäèâèäóàëüíûé ïðåäïðèíèìàòåëü", "èï", sum$form)
-  sum$form <- gsub("òîâàðèùåñòâî ñîáñòâåííèêîâ æèëüÿ", "òñæ", sum$form)
-  sum$form <- gsub("ïîòðåáèòåëüñêîå îáùåñòâî", "ïî", sum$form)
-  sum$form <- gsub("ñåëüñêîõîçÿéñòâåííûé ïðîèçâîäñòâåííûé êîîïåðàòèâ", "ñïê|ñõïê", sum$form)
-  sum$form <- gsub("ïîòðåáèòåëüñêîå îáùåñòâî", "ïî", sum$form)
-  sum$form <- gsub("íåïóáëè÷íîå àêöèîíåðíîå îáùåñòâî", "íàî", sum$form)
-  sum$form <- gsub("ïóáëè÷íîå àêöèîíåðíîå îáùåñòâî", "ïàî", sum$form)
-  sum$form <- gsub("ìóíèöèïàëüíîå ïðåäïðèÿòèå", "ìï", sum$form)
-  sum$form <- gsub("ôåäåðàëüíîå ãîñóäàðñòâåííîå áþäæåòíîå ó÷ðåæäåíèå", "ôãáó", sum$form)
-  sum$form <- gsub("ìóíèöèïàëüíîå êàçåííîå ó÷ðåæäåíèå", "ìêó", sum$form)
-  sum$form <- gsub("òîâàðèùåñòâî ñ îãðàíè÷åííîé îòâåòñòâåííîñòüþ", "òîî", sum$form)
-  sum$form <- gsub("ãîñóäàðñòâåííîå áþäæåòíîå ó÷ðåæäåíèå ñóáúåêòà ðîññèéñêîé ôåäåðàöèè", "ãáó", sum$form)
-  sum$form <- gsub("ìóíèöèïàëüíîå áþäæåòíîå ó÷ðåæäåíèå", "ìáó", sum$form)
-  sum$form <- gsub("ôåäåðàëüíîå ãîñóäàðñòâåííîå óíèòàðíîå ïðåäïðèÿòèå", "ôãóï", sum$form)
-  sum$form <- gsub("èíäèâèäóàëüíîå ÷àñòíîå ïðåäïðèÿòèå", "è÷ï", sum$form)
-  sum$form <- gsub("çàêðûòîå àêöèîíåðíîå îáùåñòâî", "çàî", sum$form)
-  sum$form <- gsub("îòêðûòîå àêöèîíåðíîå îáùåñòâî", "îàî", sum$form)
-  sum$form <- gsub("àâòîíîìíàÿ íåêîììåð÷åñêàÿ îðãàíèçàöèÿ", "àíî", sum$form)
-  sum$form <- gsub("áþäæåòíîå ó÷ðåæäåíèå", "áó", sum$form)
-  sum$form <- gsub("ãîñóäàðñòâåííîå àâòîíîìíîå ó÷ðåæäåíèå ñóáúåêòà ðîññèéñêîé ôåäåðàöèè", "ãàó", sum$form)
-  sum$form <- gsub("ãîñóäàðñòâåííîå êàçåííîå ó÷ðåæäåíèå ñóáúåêòà ðîññèéñêîé ôåäåðàöèè", "ãêó", sum$form)
-  sum$form <- gsub("ãîñóäàðñòâåííîå ïðåäïðèÿòèå", "ãï", sum$form)
-  sum$form <- gsub("ãîñóäàðñòâåííîå óíèòàðíîå ïðåïäðèÿòèå ñóáúåêòîâ ðîññèéñêîé ôåäåðàöèè", "ãóï", sum$form)
-  sum$form <- gsub("ìóíèöèïàëüíîå àâòîíîìíîå ó÷ðåæäåíèå", "ìàó", sum$form)
-  sum$form <- gsub("ìóíèöèïàëüíîå êàçåííîå ïðåäïðèÿòèå", "ìêï", sum$form)
-  sum$form <- gsub("ìóíèöèïàëüíîå êàçåííîå ó÷ðåæäåíèå", "ìêó", sum$form)
-  sum$form <- gsub("ïðîôñîþçíàÿ îðãàíèçàöèÿ", "ïî", sum$form)
-  sum$form <- gsub("ôåðìåðñêîå õîçÿéñòâî", "êôõ|êõ|ôõ", sum$form)
-  sum$form <- gsub("êðåñòüÿíñêîå ôåðìåðñêîå õîçÿéñòâî þë", "êôõ|êõ|ôõ", sum$form)
-  sum$form <- gsub("ãëàâà êðåñòüÿíñêîãî ôåðìåðñêîãî õîçÿéñòâà", "êôõ|êõ|ôõ", sum$form)
+  sum$form <- gsub("Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾ Ñ Ð¾Ð³Ñ€Ð°Ð½Ð¸Ñ‡ÐµÐ½Ð½Ð¾Ð¹ Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÐµÐ½Ð½Ð¾ÑÑ‚ÑŒÑŽ", "Ð¾Ð¾Ð¾", sum$form)
+  sum$form <- gsub("Ð¼ÑƒÐ½Ð¸Ñ†Ð¸Ð¿Ð°Ð»ÑŒÐ½Ð¾Ðµ ÑƒÐ½Ð¸Ñ‚Ð°Ñ€Ð½Ð¾Ðµ Ð¿Ñ€ÐµÐ´Ð¿Ñ€Ð¸ÑÑ‚Ð¸Ðµ", "Ð¼ÑƒÐ¿", sum$form)
+  sum$form <- gsub("Ð¸Ð½Ð´Ð¸Ð²Ð¸Ð´ÑƒÐ°Ð»ÑŒÐ½Ñ‹Ð¹ Ð¿Ñ€ÐµÐ´Ð¿Ñ€Ð¸Ð½Ð¸Ð¼Ð°Ñ‚ÐµÐ»ÑŒ", "Ð¸Ð¿", sum$form)
+  sum$form <- gsub("Ñ‚Ð¾Ð²Ð°Ñ€Ð¸Ñ‰ÐµÑÑ‚Ð²Ð¾ ÑÐ¾Ð±ÑÑ‚Ð²ÐµÐ½Ð½Ð¸ÐºÐ¾Ð² Ð¶Ð¸Ð»ÑŒÑ", "Ñ‚ÑÐ¶", sum$form)
+  sum$form <- gsub("Ð¿Ð¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»ÑŒÑÐºÐ¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð¿Ð¾", sum$form)
+  sum$form <- gsub("ÑÐµÐ»ÑŒÑÐºÐ¾Ñ…Ð¾Ð·ÑÐ¹ÑÑ‚Ð²ÐµÐ½Ð½Ñ‹Ð¹ Ð¿Ñ€Ð¾Ð¸Ð·Ð²Ð¾Ð´ÑÑ‚Ð²ÐµÐ½Ð½Ñ‹Ð¹ ÐºÐ¾Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¸Ð²", "ÑÐ¿Ðº|ÑÑ…Ð¿Ðº", sum$form)
+  sum$form <- gsub("Ð¿Ð¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»ÑŒÑÐºÐ¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð¿Ð¾", sum$form)
+  sum$form <- gsub("Ð½ÐµÐ¿ÑƒÐ±Ð»Ð¸Ñ‡Ð½Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð½Ð°Ð¾", sum$form)
+  sum$form <- gsub("Ð¿ÑƒÐ±Ð»Ð¸Ñ‡Ð½Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð¿Ð°Ð¾", sum$form)
+  sum$form <- gsub("Ð¼ÑƒÐ½Ð¸Ñ†Ð¸Ð¿Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð¿Ñ€ÐµÐ´Ð¿Ñ€Ð¸ÑÑ‚Ð¸Ðµ", "Ð¼Ð¿", sum$form)
+  sum$form <- gsub("Ñ„ÐµÐ´ÐµÑ€Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð³Ð¾ÑÑƒÐ´Ð°Ñ€ÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ðµ Ð±ÑŽÐ´Ð¶ÐµÑ‚Ð½Ð¾Ðµ ÑƒÑ‡Ñ€ÐµÐ¶Ð´ÐµÐ½Ð¸Ðµ", "Ñ„Ð³Ð±Ñƒ", sum$form)
+  sum$form <- gsub("Ð¼ÑƒÐ½Ð¸Ñ†Ð¸Ð¿Ð°Ð»ÑŒÐ½Ð¾Ðµ ÐºÐ°Ð·ÐµÐ½Ð½Ð¾Ðµ ÑƒÑ‡Ñ€ÐµÐ¶Ð´ÐµÐ½Ð¸Ðµ", "Ð¼ÐºÑƒ", sum$form)
+  sum$form <- gsub("Ñ‚Ð¾Ð²Ð°Ñ€Ð¸Ñ‰ÐµÑÑ‚Ð²Ð¾ Ñ Ð¾Ð³Ñ€Ð°Ð½Ð¸Ñ‡ÐµÐ½Ð½Ð¾Ð¹ Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÐµÐ½Ð½Ð¾ÑÑ‚ÑŒÑŽ", "Ñ‚Ð¾Ð¾", sum$form)
+  sum$form <- gsub("Ð³Ð¾ÑÑƒÐ´Ð°Ñ€ÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ðµ Ð±ÑŽÐ´Ð¶ÐµÑ‚Ð½Ð¾Ðµ ÑƒÑ‡Ñ€ÐµÐ¶Ð´ÐµÐ½Ð¸Ðµ ÑÑƒÐ±ÑŠÐµÐºÑ‚Ð° Ñ€Ð¾ÑÑÐ¸Ð¹ÑÐºÐ¾Ð¹ Ñ„ÐµÐ´ÐµÑ€Ð°Ñ†Ð¸Ð¸", "Ð³Ð±Ñƒ", sum$form)
+  sum$form <- gsub("Ð¼ÑƒÐ½Ð¸Ñ†Ð¸Ð¿Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð±ÑŽÐ´Ð¶ÐµÑ‚Ð½Ð¾Ðµ ÑƒÑ‡Ñ€ÐµÐ¶Ð´ÐµÐ½Ð¸Ðµ", "Ð¼Ð±Ñƒ", sum$form)
+  sum$form <- gsub("Ñ„ÐµÐ´ÐµÑ€Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð³Ð¾ÑÑƒÐ´Ð°Ñ€ÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ðµ ÑƒÐ½Ð¸Ñ‚Ð°Ñ€Ð½Ð¾Ðµ Ð¿Ñ€ÐµÐ´Ð¿Ñ€Ð¸ÑÑ‚Ð¸Ðµ", "Ñ„Ð³ÑƒÐ¿", sum$form)
+  sum$form <- gsub("Ð¸Ð½Ð´Ð¸Ð²Ð¸Ð´ÑƒÐ°Ð»ÑŒÐ½Ð¾Ðµ Ñ‡Ð°ÑÑ‚Ð½Ð¾Ðµ Ð¿Ñ€ÐµÐ´Ð¿Ñ€Ð¸ÑÑ‚Ð¸Ðµ", "Ð¸Ñ‡Ð¿", sum$form)
+  sum$form <- gsub("Ð·Ð°ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð·Ð°Ð¾", sum$form)
+  sum$form <- gsub("Ð¾Ñ‚ÐºÑ€Ñ‹Ñ‚Ð¾Ðµ Ð°ÐºÑ†Ð¸Ð¾Ð½ÐµÑ€Ð½Ð¾Ðµ Ð¾Ð±Ñ‰ÐµÑÑ‚Ð²Ð¾", "Ð¾Ð°Ð¾", sum$form)
+  sum$form <- gsub("Ð°Ð²Ñ‚Ð¾Ð½Ð¾Ð¼Ð½Ð°Ñ Ð½ÐµÐºÐ¾Ð¼Ð¼ÐµÑ€Ñ‡ÐµÑÐºÐ°Ñ Ð¾Ñ€Ð³Ð°Ð½Ð¸Ð·Ð°Ñ†Ð¸Ñ", "Ð°Ð½Ð¾", sum$form)
+  sum$form <- gsub("Ð±ÑŽÐ´Ð¶ÐµÑ‚Ð½Ð¾Ðµ ÑƒÑ‡Ñ€ÐµÐ¶Ð´ÐµÐ½Ð¸Ðµ", "Ð±Ñƒ", sum$form)
+  sum$form <- gsub("Ð³Ð¾ÑÑƒÐ´Ð°Ñ€ÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ðµ Ð°Ð²Ñ‚Ð¾Ð½Ð¾Ð¼Ð½Ð¾Ðµ ÑƒÑ‡Ñ€ÐµÐ¶Ð´ÐµÐ½Ð¸Ðµ ÑÑƒÐ±ÑŠÐµÐºÑ‚Ð° Ñ€Ð¾ÑÑÐ¸Ð¹ÑÐºÐ¾Ð¹ Ñ„ÐµÐ´ÐµÑ€Ð°Ñ†Ð¸Ð¸", "Ð³Ð°Ñƒ", sum$form)
+  sum$form <- gsub("Ð³Ð¾ÑÑƒÐ´Ð°Ñ€ÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ðµ ÐºÐ°Ð·ÐµÐ½Ð½Ð¾Ðµ ÑƒÑ‡Ñ€ÐµÐ¶Ð´ÐµÐ½Ð¸Ðµ ÑÑƒÐ±ÑŠÐµÐºÑ‚Ð° Ñ€Ð¾ÑÑÐ¸Ð¹ÑÐºÐ¾Ð¹ Ñ„ÐµÐ´ÐµÑ€Ð°Ñ†Ð¸Ð¸", "Ð³ÐºÑƒ", sum$form)
+  sum$form <- gsub("Ð³Ð¾ÑÑƒÐ´Ð°Ñ€ÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ðµ Ð¿Ñ€ÐµÐ´Ð¿Ñ€Ð¸ÑÑ‚Ð¸Ðµ", "Ð³Ð¿", sum$form)
+  sum$form <- gsub("Ð³Ð¾ÑÑƒÐ´Ð°Ñ€ÑÑ‚Ð²ÐµÐ½Ð½Ð¾Ðµ ÑƒÐ½Ð¸Ñ‚Ð°Ñ€Ð½Ð¾Ðµ Ð¿Ñ€ÐµÐ¿Ð´Ñ€Ð¸ÑÑ‚Ð¸Ðµ ÑÑƒÐ±ÑŠÐµÐºÑ‚Ð¾Ð² Ñ€Ð¾ÑÑÐ¸Ð¹ÑÐºÐ¾Ð¹ Ñ„ÐµÐ´ÐµÑ€Ð°Ñ†Ð¸Ð¸", "Ð³ÑƒÐ¿", sum$form)
+  sum$form <- gsub("Ð¼ÑƒÐ½Ð¸Ñ†Ð¸Ð¿Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð°Ð²Ñ‚Ð¾Ð½Ð¾Ð¼Ð½Ð¾Ðµ ÑƒÑ‡Ñ€ÐµÐ¶Ð´ÐµÐ½Ð¸Ðµ", "Ð¼Ð°Ñƒ", sum$form)
+  sum$form <- gsub("Ð¼ÑƒÐ½Ð¸Ñ†Ð¸Ð¿Ð°Ð»ÑŒÐ½Ð¾Ðµ ÐºÐ°Ð·ÐµÐ½Ð½Ð¾Ðµ Ð¿Ñ€ÐµÐ´Ð¿Ñ€Ð¸ÑÑ‚Ð¸Ðµ", "Ð¼ÐºÐ¿", sum$form)
+  sum$form <- gsub("Ð¼ÑƒÐ½Ð¸Ñ†Ð¸Ð¿Ð°Ð»ÑŒÐ½Ð¾Ðµ ÐºÐ°Ð·ÐµÐ½Ð½Ð¾Ðµ ÑƒÑ‡Ñ€ÐµÐ¶Ð´ÐµÐ½Ð¸Ðµ", "Ð¼ÐºÑƒ", sum$form)
+  sum$form <- gsub("Ð¿Ñ€Ð¾Ñ„ÑÐ¾ÑŽÐ·Ð½Ð°Ñ Ð¾Ñ€Ð³Ð°Ð½Ð¸Ð·Ð°Ñ†Ð¸Ñ", "Ð¿Ð¾", sum$form)
+  sum$form <- gsub("Ñ„ÐµÑ€Ð¼ÐµÑ€ÑÐºÐ¾Ðµ Ñ…Ð¾Ð·ÑÐ¹ÑÑ‚Ð²Ð¾", "ÐºÑ„Ñ…|ÐºÑ…|Ñ„Ñ…", sum$form)
+  sum$form <- gsub("ÐºÑ€ÐµÑÑ‚ÑŒÑÐ½ÑÐºÐ¾Ðµ Ñ„ÐµÑ€Ð¼ÐµÑ€ÑÐºÐ¾Ðµ Ñ…Ð¾Ð·ÑÐ¹ÑÑ‚Ð²Ð¾ ÑŽÐ»", "ÐºÑ„Ñ…|ÐºÑ…|Ñ„Ñ…", sum$form)
+  sum$form <- gsub("Ð³Ð»Ð°Ð²Ð° ÐºÑ€ÐµÑÑ‚ÑŒÑÐ½ÑÐºÐ¾Ð³Ð¾ Ñ„ÐµÑ€Ð¼ÐµÑ€ÑÐºÐ¾Ð³Ð¾ Ñ…Ð¾Ð·ÑÐ¹ÑÑ‚Ð²Ð°", "ÐºÑ„Ñ…|ÐºÑ…|Ñ„Ñ…", sum$form)
   
   #is the form of firm in ISCID and Ruslana dbs the same?
   sum$same_form <- stri_detect(sum$ed_firm, regex = sum$form)
