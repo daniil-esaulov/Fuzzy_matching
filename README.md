@@ -6,11 +6,11 @@ This was the part of the project for the Institute for Industrial and Market stu
 
 Due to the privacy issues I can share only the code itself without any data itself.
 
-The implemented steps of the abovementioned fuzzy matching process are represented below in details. The R script is given in the file "fuzzy_matching_ruslana.R"
+The implemented steps of the abovementioned fuzzy matching process are represented below in details. The R script is given [here](https://github.com/daniil-esaulov/Fuzzy_matching/blob/master/fuzzy_matching_ruslana.R)
 
 ## Procedural book
 
-After downloading data from Ruslana and performing SQL script (described in file “Процесс выгрузки данных большого объема и их импорта в SQL.docx”) we’ve got:
+After downloading data from Ruslana and performing [SQL script](https://github.com/daniil-esaulov/Fuzzy_matching/blob/master/Vlookup_Ruslana_regions_id.sql) we’ve got:
 
 1.	Folder with data files (.csv) from Ruslana grouped by regions. Each file contains information on firms in the corresponding region including: 
   a.	long and short names of the company separately; 
