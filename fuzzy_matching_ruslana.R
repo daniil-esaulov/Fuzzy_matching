@@ -1,6 +1,6 @@
 #load data
 #table ICSID at first
-df <- read.csv2("Raw_VET_0708v2.csv", header = T, blank.lines.skip = TRUE, stringsAsFactors = FALSE)
+df <- read.csv2("data.csv", header = T, blank.lines.skip = TRUE, stringsAsFactors = FALSE)
 #take necessary columns
 sdf <- df[,c("reg_idnew", "inn", "name", "address", "firm")]
 #delete symbols of new line and return of carriage
