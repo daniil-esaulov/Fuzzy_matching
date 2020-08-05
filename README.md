@@ -1,6 +1,8 @@
 # Fuzzy matching
 
-This was the part of the project for the Institute for Industrial and Market studies at HSE. The task was to merge two large tables: table A (consisted of ~ 33 thousand rows) was inner joined with the table B downloaded frim the Ruslana BvD database consisted of 9.5 mln rows. The difficulty was in the key_column which was the name of the company. Thus, different variations of writing this name together with possibilities of misprints in the able A lead to the necessity of upgrading the simple "merge" function. 
+This was the part of the project for the Institute for Industrial and Market studies at HSE. The task was to merge two large tables: table A (consisted of ~ 33 thousand rows) was inner joined with the table B downloaded frim the Ruslana BvD database consisted of 9.5 mln rows. The difficulty was in the key_column which was the name of the company. Thus, different variations of writing this name together with possibilities of misprints in the able A lead to the necessity of upgrading the simple "merge" function.
+
+**Results** The percentage of matches (for the unique rows) increased from 9.5% (after simple editing like lowercasing and deleting punctuation) to 65%
 
 Due to the privacy issues I can share only the code itself without any data itself.
 
@@ -73,6 +75,7 @@ For every region id from “region” vector do the following:
   d.	Remove multiple whitespaces and ones from start and ending of the string
   e.	Standardize the symbol "№..."
   f.	Extract the name of the city. Leave only the name without prefix “г.”, “село” etc.  
+
 For each phase the duplicated rows in the end are deleted
 
     _Phase 1_
@@ -122,10 +125,6 @@ For each phase the duplicated rows in the end are deleted
       c.	Create table with clearly true matches consolidating matching results for “long” and “short name” cases
 
 After seven phases we get 4 data frames for each region: 1st  – for results from phases 1-6, 2nd  – for results from phase 7, 3rd – for firms with no matches after all phases, 4th –report with statistics (described in Part 2.2 above)
-
-**Results:**
-
-Summary is in the folder “Final” (files with matched rows) and file “report” (statistics)
 
 _Some Notes:_
 
