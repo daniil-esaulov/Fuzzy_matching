@@ -21,6 +21,7 @@ After downloading data from Ruslana and performing SQL script (described in file
 **Task:** to match the name of the firm in ICSID table with long or short name of the firm in Ruslana db in order to get basic identificators: OKPO, INN, BvD number. We account for the region and city where it is possible.
 
 **Part 1. Editing ICSID table**
+
 1)	Leave just the columns needed for the matching task: "reg_idnew", "inn", "name", "address", "firm"
 
 2)	Delete all the symbols of new line and return of carriage that can affect operations with rows
@@ -42,6 +43,7 @@ After downloading data from Ruslana and performing SQL script (described in file
   h.	Remove all rows with blank or zero ("0") "firm" cell (it means that there are no companies corresponding to the particular school)
 
 **Part 2. Creating subsidiary data frames**
+
 1)	Create vector of regions from ICSID table
 
 2)	Final report – data frame consisting of the following data:
@@ -74,10 +76,12 @@ For every region id from “region” vector do the following:
 For each phase the duplicated rows in the end are deleted
 
 **Phase 1**
+
 a.	Finding perfect match with long firm name in Ruslana
 b.	Finding perfect match with short firm name in Ruslana
 
 **Phase 2**
+
 a.	Adding form abbreviation to the long name of the company («ооо», «оао», «зао», «ао», «муп», «ип», «фгуп»)
 b.	Editing rows with "ип" - if #of words in the string with "ип" is more than 4 make them 4 (to leave only "ип иванов владимир викторович" instead of "ип иванов владимир викторович магазин ромашка")
 c.	Deleting initials from the name and adding "ип" to the long name of the company
@@ -86,19 +90,24 @@ e.	Editing rows with "ип" - if #of words in the string with "ип" is more tha
 f.	Changing long business form to short business form. («общество с ограниченной ответственностью» to «ооо» etc.)
 
 **Phase 3**
+
 The same as in Phase 2 but for the short firm name
 
 **Phase 4. Working with ICSID database**
+
 Adding organization forms to firm names to ICSID table. (“ооо”, “зао”, “ао”, “оао”, “общество с ограниченной ответственностью” etc)
 
 **Phase 5**
+
 Matching names outside and inside parentheses using the same methods as in Phases 1-4
 
 **Phase 6**
+
 a.	Leave only rows where cities of school and firms match. If there are no firms that match to school by city then leave all the firms found
 b.	Account for business form. Delete matches if business forms don't match for sure. Leave matches if there is no correspondence in form (the same logics as in correspondence of cities)
 
 **Phase 7. Fuzzy Matching**
+
 For firm names that don’t have matches after Phases 1-6 we use Fuzzy string matching algorithm. It is based on special metrics – string distance. There are several popular ones.
 Comparison of different string distance algorithms can be found, for example, [here](http://www.joyofdata.de/blog/comparison-of-string-distance-algorithms/)
 
@@ -115,7 +124,9 @@ Thus, in the end we have two different tables (for each region) with matches fou
 After seven phases we get 4 data frames for each region: 1st  – for results from phases 1-6, 2nd  – for results from phase 7, 3rd – for firms with no matches after all phases, 4th –report with statistics (described in Part 2.2 above)
 
 **Results:**
+
 Summary is in the folder “Final” (files with matched rows) and file “report” (statistics)
 
 _Some Notes:_
+
 One of the possible approaches after Phase 7: do Fuzzy matching for the firm names that we didn’t match after 7 phases. But now take Ruslana row corresponding to the second minimum (second best answer).  It looks like it works reasonably well, especially for the rows that were coded “2” at Phase 7 b). Corresponding part of coding can be found in the end of the R script.
