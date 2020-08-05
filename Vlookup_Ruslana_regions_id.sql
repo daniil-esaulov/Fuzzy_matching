@@ -1,4 +1,6 @@
-﻿alter table firms_rusl_new add column region_id varchar 
+'Script for exporting Ruslana data to separate files with respect to region_id and include the name of the region
+
+alter table firms_rusl_new add column region_id varchar 
 
 update firms_rusl_new f
 set region_id= r.region_id
