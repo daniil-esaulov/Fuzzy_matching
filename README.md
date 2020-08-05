@@ -4,7 +4,7 @@ This was the part of the project for the Institute for Industrial and Market stu
 
 **Results** The percentage of matches (for the unique rows) increased from 9.5% (after simple editing like lowercasing and deleting punctuation) to 65%
 
-Due to the privacy issues I can share only the code itself without any data itself.
+Due to the privacy issues I can share only the code without any data itself.
 
 The implemented steps of the abovementioned fuzzy matching process are represented below in details. The R script is given [here](https://github.com/daniil-esaulov/Fuzzy_matching/blob/master/fuzzy_matching_ruslana.R)
 
