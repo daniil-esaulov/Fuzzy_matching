@@ -1,4 +1,6 @@
-﻿CREATE TABLE firms_rusl_shrink
+/*Script for creating PostgreSQL database containing Ruslana data*/
+
+CREATE TABLE firms_rusl_shrink
 ( _id character varying,
   _id2 character varying,
   name_long character varying,
