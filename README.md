@@ -75,51 +75,51 @@ For every region id from “region” vector do the following:
   f.	Extract the name of the city. Leave only the name without prefix “г.”, “село” etc.  
 For each phase the duplicated rows in the end are deleted
 
-**Phase 1**
+    _Phase 1_
 
-a.	Finding perfect match with long firm name in Ruslana
-b.	Finding perfect match with short firm name in Ruslana
+    a.	Finding perfect match with long firm name in Ruslana
+    b.	Finding perfect match with short firm name in Ruslana
 
-**Phase 2**
+    _Phase 2_
 
-a.	Adding form abbreviation to the long name of the company («ооо», «оао», «зао», «ао», «муп», «ип», «фгуп»)
-b.	Editing rows with "ип" - if #of words in the string with "ип" is more than 4 make them 4 (to leave only "ип иванов владимир викторович" instead of "ип иванов владимир викторович магазин ромашка")
-c.	Deleting initials from the name and adding "ип" to the long name of the company
-d.	Getting initials from the full name and adding "ип" to the long name of the company
-e.	Editing rows with "ип" - if #of words in the string with "ип" is more than 4 make them 4 in ICSID table (the same logics as in b)
-f.	Changing long business form to short business form. («общество с ограниченной ответственностью» to «ооо» etc.)
+    a.	Adding form abbreviation to the long name of the company («ооо», «оао», «зао», «ао», «муп», «ип», «фгуп»)
+    b.	Editing rows with "ип" - if #of words in the string with "ип" is more than 4 make them 4 (to leave only "ип иванов владимир викторович" instead of "ип иванов владимир викторович магазин ромашка")
+    c.	Deleting initials from the name and adding "ип" to the long name of the company
+    d.	Getting initials from the full name and adding "ип" to the long name of the company
+    e.	Editing rows with "ип" - if #of words in the string with "ип" is more than 4 make them 4 in ICSID table (the same logics as in b)
+    f.	Changing long business form to short business form. («общество с ограниченной ответственностью» to «ооо» etc.)
 
-**Phase 3**
+    _Phase 3_
 
-The same as in Phase 2 but for the short firm name
+    The same as in Phase 2 but for the short firm name
 
-**Phase 4. Working with ICSID database**
+    _Phase 4. Working with ICSID database_
 
-Adding organization forms to firm names to ICSID table. (“ооо”, “зао”, “ао”, “оао”, “общество с ограниченной ответственностью” etc)
+    Adding organization forms to firm names to ICSID table. (“ооо”, “зао”, “ао”, “оао”, “общество с ограниченной ответственностью” etc)
 
-**Phase 5**
+    _Phase 5_
 
-Matching names outside and inside parentheses using the same methods as in Phases 1-4
+    Matching names outside and inside parentheses using the same methods as in Phases 1-4
 
-**Phase 6**
+    _Phase 6_
 
-a.	Leave only rows where cities of school and firms match. If there are no firms that match to school by city then leave all the firms found
-b.	Account for business form. Delete matches if business forms don't match for sure. Leave matches if there is no correspondence in form (the same logics as in correspondence of cities)
+    a.	Leave only rows where cities of school and firms match. If there are no firms that match to school by city then leave all the firms found
+    b.	Account for business form. Delete matches if business forms don't match for sure. Leave matches if there is no correspondence in form (the same logics as in correspondence of cities)
 
-**Phase 7. Fuzzy Matching**
+    _Phase 7. Fuzzy Matching_
 
-For firm names that don’t have matches after Phases 1-6 we use Fuzzy string matching algorithm. It is based on special metrics – string distance. There are several popular ones.
-Comparison of different string distance algorithms can be found, for example, [here](http://www.joyofdata.de/blog/comparison-of-string-distance-algorithms/)
+    For firm names that don’t have matches after Phases 1-6 we use Fuzzy string matching algorithm. It is based on special metrics – string distance. There are several popular ones.
+    Comparison of different string distance algorithms can be found, for example, [here](http://www.joyofdata.de/blog/comparison-of-string-distance-algorithms/)
 
-  a.	We use generalized Levenshtein (edit) distance as it has showed better results than the others. It gives the minimal possibly weighted number of insertions, deletions and substitutions needed to transform one string into another (details [here](https://stat.ethz.ch/R-manual/R-devel/library/utils/html/adist.html)). 
+      a.	We use generalized Levenshtein (edit) distance as it has showed better results than the others. It gives the minimal possibly weighted number of insertions, deletions and substitutions needed to transform one string into another (details [here](https://stat.ethz.ch/R-manual/R-devel/library/utils/html/adist.html)). 
 
-We use chosen algorithm to find the best match for firm name from ICSID among long names and short names from Ruslana separately. “Best” here means less value of the distance.
+    We use chosen algorithm to find the best match for firm name from ICSID among long names and short names from Ruslana separately. “Best” here means less value of the distance.
 
-Thus, in the end we have two different tables (for each region) with matches found using fuzzy string matching algorithm (one for long names, another one for short names).
-  
-  b.	Manual coding matches found in a). Adding column Match_true. 3 possible values: 0- for clearly incorrect match, 1 – for clearly correct match, 2- if the correctness is not obvious
-  
-  c.	Create table with clearly true matches consolidating matching results for “long” and “short name” cases
+    Thus, in the end we have two different tables (for each region) with matches found using fuzzy string matching algorithm (one for long names, another one for short names).
+
+      b.	Manual coding matches found in a). Adding column Match_true. 3 possible values: 0- for clearly incorrect match, 1 – for clearly correct match, 2- if the correctness is not obvious
+
+      c.	Create table with clearly true matches consolidating matching results for “long” and “short name” cases
 
 After seven phases we get 4 data frames for each region: 1st  – for results from phases 1-6, 2nd  – for results from phase 7, 3rd – for firms with no matches after all phases, 4th –report with statistics (described in Part 2.2 above)
 
