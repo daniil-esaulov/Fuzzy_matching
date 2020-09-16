@@ -1,4 +1,4 @@
 # HSE
-Projects from the lab 
+Projects from the lab: 
 
-These projects were made during my work in the Institute for Industrial and Market studies
+These are the parts of the project implemented during my work in the Institute for Industrial and Market studies 
