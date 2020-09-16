@@ -1,4 +1,4 @@
-/*Script for exporting Ruslana data to separate files with respect to region_id and include the name of the region*/
+/*Script for exporting RUSLANA data to separate files with respect to region_id and include the name of the region*/
 
 alter table firms_rusl_new add column region_id varchar 
 
