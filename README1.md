@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 # Fuzzy matching
 
 This was the part of the project for the Institute for Industrial and Market studies at HSE. The task was to merge two large tables: table A (consisted of ~ 33 thousand rows) was inner joined with the table B downloaded frim the Ruslana BvD database consisted of 9.5 mln rows. The difficulty was in the key_column which was the name of the company. Thus, different variations of writing this name together with possibilities of misprints in the able A lead to the necessity of upgrading the simple "merge" function.
